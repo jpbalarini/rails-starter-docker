@@ -36,7 +36,7 @@ RUN mkdir /home/app/webapp
 RUN mkdir -p /etc/my_init.d
 ADD docker/startup.sh /etc/my_init.d/startup.sh
 RUN chmod +x /etc/my_init.d/*.sh
-RUN apt-get install git
+RUN apt-get update && apt-get install -y -qq --no-install-recommends git imagemagick ghostscript build-essential unzip
 # Clean up APT when done.
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
