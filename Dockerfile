@@ -40,8 +40,8 @@ RUN apt-get install git
 # Clean up APT when done.
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-# COPY script.sh /home/app/
-# RUN bash /home/app/script.sh
+# COPY clone_script.sh /home/app/
+# RUN bash /home/app/clone_script.sh
 
 WORKDIR /home/app/webapp/
 COPY . /home/app/webapp

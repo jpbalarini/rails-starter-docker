@@ -7,7 +7,7 @@ services:
      RAILS_VER: ${RUBY_VER}
      GIT_URL: ${GIT_URL}
    ports:
-     - "80:80"
+     - ${PORT}:80
    environment:
       APP_DB_DATABASE: ${POSTGRES_DB}
       APP_DB_USERNAME: ${POSTGRES_USER}
