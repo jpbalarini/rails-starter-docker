@@ -1,27 +1,27 @@
 version: '3'
 services:
- web:
-   build:
-    context: .
-    args:
-     RAILS_VER: ${RUBY_VER}
-     GIT_URL: ${GIT_URL}
-   ports:
-     - ${PORT}:80
-   environment:
+  web:
+    build:
+      context: .
+      args:
+       RAILS_VER: ${RUBY_VER}
+       GIT_URL: ${GIT_URL}
+    ports:
+      - ${PORT}:80
+    environment:
       APP_DB_DATABASE: ${POSTGRES_DB}
       APP_DB_USERNAME: ${POSTGRES_USER}
       APP_DB_PASSWORD: ${POSTGRES_PASSWORD}
       SECRET_KEY_BASE: ${SECRET_KEY_BASE}
       APP_DB_HOST: postgres
-   depends_on:
-    - postgres
- postgres:
+    depends_on:
+      - postgres
+  postgres:
     image: postgres:latest
     environment:
       POSTGRES_DB: ${POSTGRES_DB}
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     volumes:
-     - ./tmp/db:/var/lib/postgresql/data
+      - ./tmp/db:/var/lib/postgresql/data
 

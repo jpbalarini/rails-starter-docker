@@ -1,24 +1,10 @@
-# README
+# Setup
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Be sure to pupulate your .env file. An example:
 
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+RUBY_VER=2.5.1
+SECRET_KEY_BASE=SOME_SECRET_KEY_BASE;
+POSTGRES_DB=rails-app
+POSTGRES_USER=postgres
+POSTGRES_PASSWORD=
+PORT=80
