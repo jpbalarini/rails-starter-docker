@@ -29,9 +29,6 @@ ADD docker/nginx.conf /etc/nginx/sites-enabled/webapp.conf
 # Add the rails-env configuration file so Nginx preserves the environment variables listed
 ADD docker/rails-env.conf /etc/nginx/main.d/rails-env.conf
 
-# Prepare folders
-RUN mkdir /home/app/webapp
-
 # Add startup script to run during container startup
 RUN mkdir -p /etc/my_init.d
 ADD docker/startup.sh /etc/my_init.d/startup.sh
@@ -40,13 +37,15 @@ RUN apt-get update && apt-get install -y -qq --no-install-recommends git imagema
 # Clean up APT when done.
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-# COPY clone_script.sh /home/app/
-# RUN bash /home/app/clone_script.sh
-
+# Prepare folders
+USER app
+RUN mkdir /home/app/webapp
 WORKDIR /home/app/webapp/
-COPY . /home/app/webapp
-COPY docker/database.yml /home/app/webapp/config
-RUN chown -R app:app /home/app/webapp
-RUN sudo -u app gem install bundler
-RUN sudo -u app bundle install --without development test
-RUN sudo -u app RAILS_ENV=production bundle exec rake assets:precompile
+COPY --chown=app:app Gemfile /home/app/webapp/
+COPY --chown=app:app Gemfile.lock /home/app/webapp/
+RUN gem install bundler
+RUN bundle install --without development test
+COPY --chown=app:app . /home/app/webapp
+COPY --chown=app:app docker/database.yml /home/app/webapp/config
+RUN RAILS_ENV=production bundle exec rake assets:precompile
+USER root
